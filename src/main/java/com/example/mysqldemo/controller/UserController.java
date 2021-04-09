@@ -25,14 +25,18 @@ public class UserController {
 	int createUser(@RequestBody User user){
 		return userService.save(user);
 	}
-	@GetMapping("/user")
-	List<User> getBugs() {
-	return userService.getUser();
+	@GetMapping("user")
+	List<User> getAllUsers(){
+		return userService.getAllUsers();
 	}
-	@GetMapping("/user/{id}")
-	Optional<User> getUserById(@PathVariable("id") int userId) {
-	return userService.getUserById(userId);
-	}
+//	@GetMapping("/user")
+//	List<User> getBugs() {
+//	return userService.getUser();
+//	}
+//	@GetMapping("/user/{id}")
+//	Optional<User> getUserById(@PathVariable("id") int userId) {
+//	return userService.getUserById(userId);
+//	}
 	@PutMapping("/user/{id}")
 	void updateUser(@RequestBody User user, @PathVariable("id") int userId, BindingResult bindingResult) {
 	user.setId(userId);

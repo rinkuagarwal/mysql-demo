@@ -14,4 +14,5 @@ public interface IUserService {
 	void updateUser(User user);
 
 	void deleteOrder(Integer userId);
+	List<User> getAllUsers();
 }

@@ -5,7 +5,21 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function sendData() {
-		fetch('/user', {
+		function success(response){
+			
+			return response.json();
+		}
+		function errorHandler(error){
+			console.log(error);
+		}
+		console.log('2')
+		const userform = document.getElementById('userform');
+		
+		if(!userform.checkValidity()){
+			alert('form is invalid');
+			return;
+		}
+		fetch('/user', {//ajax request, Asynchronous javaScript and xml
 			method:'POST',
 			headers: {
 			      'Content-Type': 'application/json'
@@ -16,13 +30,60 @@
 			    mobileNumber: document.getElementById('mobileNumber').value
 			    })
 		});
+		promise.then(success);
+		promise.then(function(data){
+			console.log(data);
+		});
+		promise.catch(function(error){
+			console.log(error);
+		});
+		console.log('1');
 	}
+	function getUsers(){
+		const promise = fetch('/user');
+		promise.then(function(response){
+			return response.json();
+		})
+		.then(function(users){
+			console.log(users);
+			const table = document.getElementById('users');
+			for(let index=0; index< users.length;index++){
+				console.log(users[index]);
+				const currentUser = users[index];
+				const row = document.createElement('tr');
+				const nameColumn = document.createElement('td');
+				const emailColumn = document.createElement('td');
+				const mobileColumn = document.createElement('td');
+				nameColumn.append(currentUser.name);
+				emailColumn.append(currentUser.email);
+				mobileColumn.append(currentUser.mobileNumber);
+				row.appendChild(nameColumn);
+				row.appendChild(emailColumn);
+				row.appendChild(mobileColumn);
+				table.appendChild(row);
+			}
+		})
+	}
+	
 </script>
 </head>
 <body>
-	<input id='username' placeholder="Name">
-	<input id='emailid' placeholder="Email">
-	<input id='mobileNumber' placeholder="Mobile Number">
+    <h3>Userform</h3>
+	<form id='userform'>
+	<input id='username' placeholder="Name" required>
+	<input id='emailid' placeholder="Email" required>
+	<input type='tel' id='mobileNumber' placeholder="Mobile Number"pattern="[0-9]{10}" required>
 	<button onclick="sendData()">Save</button>
+	
+	</form>
+	<button onclick="getUsers()">Get Users</button>
+	<table>
+		<thead>
+			<td>Name</td>
+			<td>Email</td>
+			<td>Mobile Number</td>
+		</thead>
+		<tbody id='users'></tbody>
+	</table>
 </body>
 </html>

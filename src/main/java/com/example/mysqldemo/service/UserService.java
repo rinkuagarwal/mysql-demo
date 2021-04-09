@@ -34,5 +34,10 @@ public class UserService implements IUserService{
 	public void deleteOrder(Integer userId) {
 	userRepository.deleteById(userId);
 	}
+	@Override
+	public List<User> getAllUsers() {
+		
+		return userRepository.findAll();
+	}
 
 }
