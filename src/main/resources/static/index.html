@@ -27,7 +27,8 @@
 			    body:JSON.stringify({
 			    	name: document.getElementById('username').value,
 			    	email: document.getElementById('emailid').value,
-			    mobileNumber: document.getElementById('mobileNumber').value
+			    mobileNumber: document.getElementById('mobileNumber').value,
+			   dob: document.getElementById('dobid').value
 			    })
 		});
 		promise.then(success);
@@ -73,6 +74,7 @@
 	<input id='username' placeholder="Name" required>
 	<input id='emailid' placeholder="Email" required>
 	<input type='tel' id='mobileNumber' placeholder="Mobile Number"pattern="[0-9]{10}" required>
+	<input type='date' id='dobid' placeholder="DOB" required>
 	<button onclick="sendData()">Save</button>
 	
 	</form>
